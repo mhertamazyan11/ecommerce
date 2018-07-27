@@ -1,0 +1,24 @@
+<div class="container" *ngIf="orders$ | async;let orders">
+  <div *ngIf="orders.total_count > 0; else elseBlock">
+    <div *ngFor="let order of orders.orders"></div>
+    <app-order-list-item [order]="orders"></app-order-list-item>
+  </div>
+
+
+  <div class="col-12">
+    <div class="row">
+      <pagination class="m-auto" *ngIf="orders.total_count > orders.per_page" [totalItems]="orders.total_count" [itemsPerPage]="orders.per_page"
+        [(ngModel)]="orders.current_page" (pageChanged)="pageChanged($event)">
+      </pagination>
+    </div>
+  </div>
+
+
+  <ng-template #elseBlock>
+    <div class="cart-empty">
+      <div class="empty-cart-icon"></div>
+      <div class="empty-cart-message">You have'nt ordered anything yet.</div>
+      <button type="button" class="btn btn-primary" [routerLink]="['/']">Start Shopping</button>
+    </div>
+  </ng-template>
+</div>

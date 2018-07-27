@@ -1,0 +1,37 @@
+<div itemscope itemtype="https://schema.org/Product" *ngIf="product != null" class="row pt-5">
+  <div class="col-12 col-md-5">
+    <app-image-container [images]="images" class="col-12" [selectedImage]="images[0]">
+    </app-image-container>
+  </div>
+  <div class="col-md-7 col-12">
+    <app-product-price-info [product]="product" (onAddToCart)="addToCart($event)" (onMarkAsFavorites)="markAsFavorite()" (selectedVariant)="selectedVariant($event)"
+      class="row">
+    </app-product-price-info>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <h1 class="mt-2">
+      Description
+    </h1>
+    <app-product-description [description]="product.description" class="row">
+    </app-product-description>
+  </div>
+</div>
+<div *ngIf="similarProducts$ | async; let similarProducts">
+  <div class="slider" *ngIf="similarProducts.length >0">
+    <h2>
+      Similar products
+    </h2>
+    <app-product-slider [productlist]="similarProducts"></app-product-slider>
+  </div>
+</div>
+<div *ngIf="relatedProducts$ | async; let relatedProducts">
+  <div class="slider" *ngIf="relatedProducts.length >0">
+    <h2>
+      Related products
+    </h2>
+    <app-product-slider [productlist]="relatedProducts"></app-product-slider>
+  </div>
+</div>
+<app-product-review [product]="product" [reviewList]='reviewProducts$ | async'></app-product-review>

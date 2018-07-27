@@ -1,0 +1,21 @@
+<div class="d-flex  my-flex-container" *ngIf="fillterList[0]; let catgeory_taxonomy">
+
+  <div class="p-0 no-gutters" class="parrent-catgory">
+    <ul class="filter">
+      <li *ngFor="let taxon of catgeory_taxonomy.root.taxons" [ngClass]="{'active': selectedItem == taxon.name}" (click)="listClick($event, taxon.name)">
+        <a>{{taxon.name}}</a>
+        <ul>
+          <li *ngFor="let subtaxon of taxon.taxons">
+            <a>{{subtaxon.name}}</a>
+            <ul>
+              <li *ngFor="let subsubtaxon of subtaxon.taxons">
+                <a>{{ subsubtaxon.name }}</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <span class="badge badge-secondary center"></span>
+</div>

@@ -1,0 +1,63 @@
+<div class="cust-reviews">
+  <h1>Customer Reviews</h1>
+  <div class="row">
+    <div class="col-12 col-md-6 pl-4" *ngIf="reviewList">
+      <div class="avg-review">
+        <div class="row">
+          <div class="review col-12 col-md-5 col-lg-5 p-0">
+            <ngx-input-star-rating disabled="true" value="{{product.avg_rating }}" required></ngx-input-star-rating>
+            {{product.reviews_count }} Reviews
+          </div>
+          <div class="out-review col-12 col-md-5 col-lg-5 ">
+            {{product.avg_rating }} out of 5 star
+          </div>
+        </div>
+      </div>
+      <div class="write-review">
+      </div>
+      <div class="row rataingpercentage" *ngFor="let rating of reviewList.rating_summery; let i = index">
+        <div class="col-3 col-md-2 col-lg-2 pl-2 pr-0">
+          {{rating.rating}} Stars
+        </div>
+        <div class="col-7 col-md-8 col-lg-8 pr-0 pl-0">
+          <div class="mb-2 progress-container">
+            <progressbar [value]="rating.percentage" type="warning"></progressbar>
+          </div>
+        </div>
+        <div class="col-2  col-md-2 col-lg-2 pl-2">
+          <b>{{rating.percentage | number: '1.0-0'}}% </b>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-3 offset-md-2 mt-5 pt-5">
+      <div class="row">
+        <button (click)="showReviewForm()" class="btn themebtnprimary col-10 m-auto">Write Review</button>
+      </div>
+    </div>
+  </div>
+  <div class="review-display">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="review-sort-filter mt-5 mb-4">
+          <div class="row">
+            <div class="float-left col-md-4 pt-2">Showing {{product.reviews_count }} Reviews</div>
+          </div>
+        </div>
+        <div *ngIf="reviewList">
+          <div *ngFor="let item of reviewList.reviews" class="rating-inner">
+            <div class="rating-head">
+              <ngx-input-star-rating disabled="true" value="{{item.rating }}" required></ngx-input-star-rating>
+              <span class="pl-3">{{item.title}}</span>
+            </div>
+            <div class="rating-by">
+              By {{item.name}} on {{item.created_at | date}}
+            </div>
+            <p class="description">
+              {{item.review}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="row results-base m-0" *ngIf="!isMobile">
+  <div class="col-12 col-md-3 col-sm-3 col-lg-3 product-base" *ngFor="let product of products | filter : selectedTaxonIds; trackBy: trackByFn"
+    [style.margin]="getMargin()" itemscope itemtype="https://schema.org/Product">
+    <a itemprop="url" [routerLink]="['/', product.slug]">
+      <img itemprop="image" class="product-thumb" alt="{{product.name}}" [src]="product.product_url">
+      <div class="product-productMetaInfo">
+        <div class="morechoices">
+          More Choices Available
+        </div>
+        <div itemprop="name" class="product-brand">{{ product.name }}</div>
+        <div itemprop="offers" itemscope itemtype="https://schema.org/Offer" class="product-price">
+          <span>
+            <span itemprop="price" class="product-discountedPrice">{{product.currency}} {{ product.price }}</span>
+            <span *ngIf="product.cost_price; let cost_price">
+              <span itemprop="price" class="disableprize">{{product.currency}}{{cost_price}}</span>
+            </span>
+          </span>
+        </div>
+        <p class="shipping">
+          FREE 1-2 day shipping on this item
+        </p>
+        <div class="ngrating my-3">
+          <ngx-input-star-rating disabled="true" value="{{product.avg_rating }}"></ngx-input-star-rating>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+
+<div class="col-12">
+  <div class="row">
+    <pagination *ngIf="paginationData.total_count > paginationData.per_page" [totalItems]="paginationData.total_count" [itemsPerPage]="paginationData.per_page"
+      [(ngModel)]="paginationData.current_page" (pageChanged)="pageChanged($event)" class="m-auto"></pagination>
+  </div>
+
+</div>
+
+
+<div class="row results-base m-0" *ngIf="isMobile">
+  <div class="col-12 product-base" *ngFor="let product of products | filter : selectedTaxonIds; trackBy: trackByFn" [style.margin]="getMargin()"
+    itemscope itemtype="https://schema.org/Product">
+    <a itemprop="url" [routerLink]="['/', product.slug]">
+      <div class="row">
+        <div class="col-5 p-0 searchimg">
+          <img itemprop="image" class="product-thumb img-fluid" alt="{{product.name}}" [src]="product.product_url">
+          <div class="morechoices">
+            More Choices Available
+          </div>
+        </div>
+        <div class="col-7 p-0">
+          <div class="product-productMetaInfo">
+            <div itemprop="name" class="product-brand">{{ product.name }}</div>
+            <div itemprop="offers" itemscope itemtype="https://schema.org/Offer" class="product-price">
+              <span>
+                <span itemprop="price" class="product-discountedPrice">{{product.currency}} {{ product.price }}</span>
+                <span *ngIf="product.cost_price; let cost_price">
+                  <span itemprop="price" class="disableprize">{{product.currency}}{{cost_price}}</span>
+                </span>
+              </span>
+            </div>
+            <p class="shipping">
+              FREE 1-2 day shipping on this item
+            </p>
+            <div class="ngrating">
+              <ngx-input-star-rating disabled="true" value="{{product.avg_rating }}"></ngx-input-star-rating>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

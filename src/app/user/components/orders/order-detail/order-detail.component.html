@@ -1,0 +1,91 @@
+<div *ngIf="order">
+  <div class="row box  m-1">
+    <div class="col-12 col-sm-6">
+      <h3>Order Details</h3>
+      <table>
+        <tr>
+          <td>Order ID:</td>
+          <td> {{order.number}}</td>
+        </tr>
+        <tr>
+          <td>Order Date:</td>
+          <td>{{order.updated_at | date}}</td>
+        </tr>
+        <tr>
+          <td>Item price:</td>
+          <td> {{order.display_item_total}}</td>
+        </tr>
+        <tr>
+          <tr>
+            <td>Shipping:</td>
+            <td> {{order.display_ship_total}}</td>
+          </tr>
+          <tr>
+            <td>Total Amount:</td>
+            <td> {{order.display_total}} </td>
+          </tr>
+          <tr>
+            <td>Payment Status:</td>
+            <td>
+              <b class="text-uppercase">{{order.payment_state | humanize | uppercase}}</b>
+            </td>
+          </tr>
+      </table>
+    </div>
+    <div class="col-12 col-sm-6 ">
+      <h3>Address</h3>
+      <table>
+        <tr>
+          <td>Name: </td>
+          <td>{{order.ship_address.full_name}}</td>
+        </tr>
+        <tr>
+          <td>Address:</td>
+          <td>{{order.ship_address.address1}}, {{order.ship_address.address2}}, {{order.ship_address.city}}</td>
+        </tr>
+        <tr>
+          <td>Pincode:</td>
+          <td>{{order.ship_address.zipcode}}</td>
+        </tr>
+        <tr>
+          <td>Phone:</td>
+          <td>{{order.ship_address.phone}}</td>
+        </tr>
+        <tr>
+          <td>Email:</td>
+          <td>{{order.email}}</td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+
+  <div class='row box m-1 my-4' *ngFor="let line_item of order.line_items">
+    <br>
+    <div class="col-md-2">
+      <img class="line_item_image" [src]="getProductImageUrl(line_item)" alt="Line Item">
+    </div>
+
+    <div class="col-md-3">
+      <h5 class="ptitle">
+        <a [routerLink]="['/', line_item.variant.slug]">
+          {{line_item.variant.name}}
+        </a>
+      </h5>
+    </div>
+
+    <div class="col-md-3">
+      <h5 class="strong">
+
+        {{line_item.display_amount}}
+      </h5>
+
+
+    </div>
+    <div class="col-md-4">
+      <p>
+        <strong class="text-warning">Please note:</strong> You can return or exchange this within 30 days.
+      </p>
+    </div>
+  </div>
+</div>

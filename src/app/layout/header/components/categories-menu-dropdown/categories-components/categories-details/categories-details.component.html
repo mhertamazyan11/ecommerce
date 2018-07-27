@@ -1,0 +1,49 @@
+<div class="container bgimg" *ngIf="!screenwidth" [ngStyle]="{'background': '#fff url(' + taxonImageLink + ') no-repeat 0 0'}">
+  <div class="row mr-0">
+    <div class="col-md-7 ">
+      <div class="row">
+        <div class="col-md-3 p-0" *ngFor="let taxon of taxons">
+          <div>
+            <a [routerLink]="['/search']" [queryParams]="{id: taxon.id}">
+               <b class="sucathead">{{taxon.name}}</b>
+            </a>
+            <app-categories-list [taxons]="taxon.taxons"></app-categories-list>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9 p-0 my-3">
+          <h4>Popular Brands</h4>
+          <app-brand-logo [brandList]="brandLists$ |async"></app-brand-logo>
+        </div>
+      </div>
+    </div>
+    <!-- to do -->
+    <!-- <div class="col-md-5 imgcon">
+      <img class="w-100" [src]="taxonImageLink" alt="">
+    </div> -->
+  </div>
+</div>
+<div class="container catcon" *ngIf="screenwidth">
+  <div class="row">
+    <div class="col-md-8 catconinner">
+
+      <div class="row catadjustwidth">
+        <div class="col-6 col-sm-6   p-0 no-gutters brandsmenu" [@popOverState]="stateName">
+          <ul>
+            <li *ngFor="let taxon of taxons let i= index" (click)="showCategoryonclick(taxon)">
+              <a class="sucathead" [routerLink]="['/search']" [queryParams]="{id: taxon.id}">
+                {{taxon.name}}
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-6 col-sm-6  p-0 no-gutters brandsmenu" [@popOverState]="stateName">
+          <ul class="pb-0">
+            <li (click)="backtolist()">Back</li>
+          </ul>
+          <app-categories-list [screenwidth]="screenwidth" [taxons]="menuTaxons"></app-categories-list>
+        </div>
+      </div>
+    </div>
+  </div>
